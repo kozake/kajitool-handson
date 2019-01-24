@@ -1,0 +1,14 @@
+buildscript {
+    dependencies {
+        classpath 'com.h2database:h2:1.4.197'
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "5.2.4"
+}
+
+flyway {
+    url = "jdbc:h2:file:$rootDir/kajitool-h2db/db"
+    user = 'sa'
+}

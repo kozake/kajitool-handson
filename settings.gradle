@@ -1,1 +1,1 @@
-include 'kajitool-web'
+include 'kajitool-web', 'kajitool-flyway'
