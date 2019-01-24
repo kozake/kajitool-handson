@@ -1,0 +1,33 @@
+apply plugin: 'java'
+
+configurations {
+    gentool
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/gen/java'
+        }
+    }
+}
+
+task cleanGen(type: Delete, description:'delete generated sources.', group:'Gen') {
+    delete "$projectDir/src/gen/java"
+}
+
+task gen(type: JavaExec, description:'generate sources', group:'Gen', dependsOn: [cleanGen]) {
+    classpath = configurations.gentool
+    main = 'org.mybatis.generator.api.ShellRunner'
+    maxHeapSize = '512m'
+    args '-configfile', 'genConfig.xml'
+} doFirst {
+    file("$projectDir/src/gen/java/kajitool/").mkdirs()
+}
+
+dependencies {
+    gentool 'com.h2database:h2:1.4.197'
+    gentool 'org.mybatis.generator:mybatis-generator-core:1.3.6'
+    implementation 'org.mybatis:mybatis:3.4.5'
+    runtimeOnly 'com.h2database:h2:1.4.197'
+}
