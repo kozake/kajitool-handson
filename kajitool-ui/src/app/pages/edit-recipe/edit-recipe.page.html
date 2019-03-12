@@ -1,9 +1,111 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>EditRecipe</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>レシピ編集</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <form ngForm #recipeForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          武器名
+        </ion-label>
+        <ion-input
+          name="recipeName"
+          type="text"
+          placeholder="Input text"
+          [(ngModel)]="recipe.name"
+          required
+        ></ion-input>
+      </ion-item>
+    </ion-list>
 
+    <ion-list>
+      <ion-item-group *ngFor="let detail of recipe.recipeDetails; index as i">
+        <ion-item-divider>
+          <ion-label> {{ i + 1 }}つめの素材 </ion-label>
+          <ion-button slot="end" fill="clear" (click)="onRemoveMaterial(i)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-item-divider>
+
+        <ion-item>
+          <ion-label>
+            素材名
+          </ion-label>
+          <ion-select 
+            [name]="'materialId-' + i"
+            placeholder="Select one"
+            [(ngModel)]="detail.materialId"
+            required>
+            <ng-container *ngFor="let material of materials">
+              <ion-select-option 
+                [value]="material.id" 
+                [selected]="material.id === detail.materialId">
+                {{material.name}}
+              </ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            数量
+          </ion-label>
+          <ion-input
+            [name]="'quantity-' + i"
+            type="number"
+            inputmode="numeric"
+            class="text-right"
+            placeholder="Input number"
+            [(ngModel)]="detail.quantity"
+            required
+            min="1"
+            max="99"
+          ></ion-input>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </form>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="onAddMaterial()">
+        <ion-icon name="add"></ion-icon>
+        素材を追加
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button 
+        *ngIf="this.isNew"
+        color="primary" 
+        [disabled]="!canRegist(recipeForm)"
+        (click)="onCreate()">
+        <ion-icon name="add"></ion-icon>
+        レシピを追加
+      </ion-button>
+      <ion-button
+        *ngIf="!this.isNew"
+        color="primary" 
+        [disabled]="!canRegist(recipeForm)"
+        (click)="onSave()">
+        <ion-icon name="add"></ion-icon>
+        レシピを更新
+      </ion-button>
+      <ion-button
+        *ngIf="!this.isNew"
+        color="danger" 
+        (click)="onRemove()">
+        <ion-icon name="remove"></ion-icon>
+        レシピを削除
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

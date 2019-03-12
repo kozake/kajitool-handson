@@ -42,6 +42,36 @@ export class RecipeService {
     return this.recipeList;
   }
 
+  newRecipe(): Recipe {
+    return {
+      id: null,
+      name: '',
+      recipeDetails: [],
+      updatedAt: null,
+      version: null
+    };
+  }
+
+  async get(id: number): Promise<Recipe> {
+    return this.recipeResource.get(id).toPromise();
+  }
+
+  async create(recipe: Recipe): Promise<any> {
+    return await this.recipeResource.create(recipe).toPromise();
+  }
+
+  async save(recipe: Recipe): Promise<any> {
+    return await this.recipeResource.save(recipe).toPromise();
+  }
+
+  async remove(recipe: Recipe): Promise<any> {
+    await this.recipeResource.remove(recipe.id, recipe.version).toPromise();
+    const index = this.recipeList.findIndex(v => v.id === recipe.id);
+    if (index !== -1) {
+      this.recipeList.splice(index, 1);
+    }
+  }
+
   async getNeedMaterial(): Promise<NeedMaterialModel[]> {
 
     const obRecipes: Observable<Recipe>[] = this.recipeList
