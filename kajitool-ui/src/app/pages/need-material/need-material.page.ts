@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-need-material',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NeedMaterialPage implements OnInit {
 
-  constructor() { }
+  constructor(public recipeService: RecipeService) { }
 
   ngOnInit() {
+    this.recipeService.getNeedMaterial();
   }
 
+  ionViewWillEnter() {
+    this.recipeService.getNeedMaterial();
+  }
 }

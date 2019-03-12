@@ -8,5 +8,29 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-item-group>
+    <ion-item-divider>
+      <ion-label>作る武器</ion-label>
+    </ion-item-divider>
 
+    <ng-container *ngFor="let r of recipeService.recipeList">
+      <ion-item *ngIf="r.selected && r.orderQuantity > 0">
+        <ion-label>{{r.name}}</ion-label>
+        <ion-note slot="end" class="quantity">×{{r.orderQuantity}}</ion-note>
+      </ion-item>
+    </ng-container>
+  </ion-item-group>
+      
+  <ion-item-group>
+    <ion-item-divider>
+      <ion-label>必要な素材</ion-label>
+    </ion-item-divider>
+
+    <ng-container *ngFor="let m of recipeService.needMaterial">
+      <ion-item>
+        <ion-label>{{m.material.name}}</ion-label>
+        <ion-note slot="end" class="quantity">×{{m.needQuantity}}</ion-note>
+      </ion-item>
+    </ng-container>
+  </ion-item-group>
 </ion-content>
