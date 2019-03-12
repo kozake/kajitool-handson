@@ -1,0 +1,36 @@
+{
+  "name": "@kajitool/kajitool-api",
+  "version": "1.0.0",
+  "description": "OpenAPI client for @kajitool/kajitool-api",
+  "author": "OpenAPI-Generator Contributors",
+  "keywords": [
+    "openapi-client",
+    "openapi-generator"
+  ],
+  "license": "Unlicense",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json"
+  },
+  "peerDependencies": {
+    "@angular/core": "^7.2.2",
+    "@angular/http": "^7.2.2",
+    "@angular/common": "^7.2.2",
+    "@angular/compiler": "^7.2.2",
+    "core-js": "^2.4.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "^6.1.0"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "^7.2.2",
+    "@angular/core": "^7.2.2",
+    "@angular/http": "^7.2.2",
+    "@angular/common": "^7.2.2",
+    "@angular/compiler": "^7.2.2",
+    "@angular/platform-browser": "^7.2.2",
+    "ng-packagr": "^2.4.1",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "^6.1.0",
+    "zone.js": "^0.7.6 || ^0.8.26",
+    "typescript": ">=2.1.5 <2.8"
+  }
+}

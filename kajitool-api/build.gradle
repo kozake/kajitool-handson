@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:3.3.4"
+    }
+}
+
+apply plugin: 'org.openapi.generator'
+
+task downloadApiSpec doLast {
+    def file = new File("$projectDir/api-spec.json")
+    file.delete()
+    file.setText(groovy.json.JsonOutput.prettyPrint(new URL('http://localhost:8080/v2/api-docs').getText('UTF-8')), 'UTF-8')
+}
+
+task clean(type: Delete) {
+    delete"$buildDir"
+}
+
+task genTypescriptAngular(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    generatorName = "typescript-angular"
+    inputSpec = "$projectDir/api-spec.json".toString()
+    outputDir = "$buildDir/typescript-angular".toString()
+    additionalProperties = [
+            npmName: "@kajitool/kajitool-api",
+            npmVersion: "1.0.0",
+            ngVersion: "7.2.2",
+            providedInRoot: "true"
+    ]
+    removeOperationIdPrefix = true
+}
+genTypescriptAngular.dependsOn clean

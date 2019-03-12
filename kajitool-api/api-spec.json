@@ -1,0 +1,395 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Api Documentation",
+        "version": "1.0",
+        "title": "Api Documentation",
+        "termsOfService": "urn:tos",
+        "contact": {
+            
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0"
+        }
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "account-resource",
+            "description": "Account Resource"
+        },
+        {
+            "name": "material-resource",
+            "description": "Material Resource"
+        },
+        {
+            "name": "recipe-list-view-resource",
+            "description": "Recipe List View Resource"
+        },
+        {
+            "name": "recipe-resource",
+            "description": "Recipe Resource"
+        }
+    ],
+    "paths": {
+        "/api/v1/acount/": {
+            "get": {
+                "tags": [
+                    "account-resource"
+                ],
+                "summary": "\u30ed\u30b0\u30a4\u30f3\u30a2\u30ab\u30a6\u30f3\u30c8\u3092\u8fd4\u3057\u307e\u3059\u3002",
+                "operationId": "account_get",
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/material/": {
+            "get": {
+                "tags": [
+                    "material-resource"
+                ],
+                "summary": "\u7d20\u6750\u3092\u8fd4\u3057\u307e\u3059\u3002",
+                "operationId": "material_getAll",
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Material"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/recipe/create": {
+            "post": {
+                "tags": [
+                    "recipe-resource"
+                ],
+                "summary": "\u30ec\u30b7\u30d4\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002",
+                "operationId": "recipe_create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "recipe",
+                        "description": "recipe",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Recipe"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/recipe/save": {
+            "put": {
+                "tags": [
+                    "recipe-resource"
+                ],
+                "summary": "\u30ec\u30b7\u30d4\u3092\u66f4\u65b0\u3057\u307e\u3059\u3002",
+                "operationId": "recipe_save",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "recipe",
+                        "description": "recipe",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Recipe"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "201": {
+                        "description": "Created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/recipe/{id}": {
+            "get": {
+                "tags": [
+                    "recipe-resource"
+                ],
+                "summary": "ID\u306e\u30ec\u30b7\u30d4\u3092\u8fd4\u3057\u307e\u3059\u3002",
+                "operationId": "recipe_get",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Recipe"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            },
+            "delete": {
+                "tags": [
+                    "recipe-resource"
+                ],
+                "summary": "ID\u306e\u30ec\u30b7\u30d4\u3092\u524a\u9664\u3057\u307e\u3059\u3002",
+                "operationId": "recipe_remove",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "version",
+                        "in": "query",
+                        "description": "version",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/api/v1/recipe_list_view": {
+            "get": {
+                "tags": [
+                    "recipe-list-view-resource"
+                ],
+                "summary": "\u30ec\u30b7\u30d4\u4e00\u89a7\u3092\u8fd4\u3057\u307e\u3059\u3002",
+                "operationId": "recipeListView_getAll",
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/RecipeListView"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        "Account": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "Account"
+        },
+        "Material": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "Material"
+        },
+        "Recipe": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "recipeDetails": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RecipeDetail"
+                    }
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "version": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            },
+            "title": "Recipe"
+        },
+        "RecipeDetail": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "materialId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recipeId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "title": "RecipeDetail"
+        },
+        "RecipeListView": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "materialCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "title": "RecipeListView"
+        }
+    }
+}
