@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -15,8 +17,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.csrf().csrfTokenRepository(
                 CookieCsrfTokenRepository.withHttpOnlyFalse())
+        .and()
+            .exceptionHandling()
+            .authenticationEntryPoint((request, response, authException) -> {
+                // SPAとの連携を考慮し、認証エラー時は302ではなく401を返すようにする
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            })
         .and().oauth2Login()
+                // SPAとの連携を考慮し、認証成功時のURLは固定にする
+                .defaultSuccessUrl("/", true)
         .and().authorizeRequests()
+            .mvcMatchers("/api/v1/acount").authenticated()
             .mvcMatchers(HttpMethod.POST, "/api/**/*").authenticated()
             .mvcMatchers(HttpMethod.PUT, "/api/**/*").authenticated()
             .mvcMatchers(HttpMethod.DELETE, "/api/**/*").authenticated()
