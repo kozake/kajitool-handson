@@ -1,5 +1,6 @@
 package kajitool.web.controller;
 
+import io.swagger.annotations.ApiOperation;
 import kajitool.web.domain.model.Material;
 import kajitool.web.service.material.MaterialService;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public class MaterialResource {
         this.service = service;
     }
     @GetMapping("/")
+    @ApiOperation(value="素材を返します。", nickname="material_getAll")
     public ResponseEntity<List<Material>> getAll() {
         return ResponseEntity.ok(service.findAll());
     }
