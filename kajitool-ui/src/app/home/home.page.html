@@ -1,12 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-</ion-content>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="select-recipe">
+      <ion-icon name="checkmark"></ion-icon>
+      <ion-label>武器を選択</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="need-material">
+      <ion-icon name="list"></ion-icon>
+      <ion-label>必要な素材</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>
