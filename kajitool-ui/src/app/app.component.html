@@ -11,8 +11,11 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item>
               <ion-icon slot="start" name="log-in"></ion-icon>
-              <ion-label>
+              <ion-label (click)="goLogin()">
                 ログイン
+                <span *ngIf="accountService.isLogined">
+                  ({{accountService.account.name}})
+                </span>
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
