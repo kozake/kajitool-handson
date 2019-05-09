@@ -1,5 +1,6 @@
 package kajitool.web.service.recipe;
 
+import am.ik.yavi.builder.ValidatorBuilder;
 import am.ik.yavi.core.ConstraintGroup;
 import am.ik.yavi.core.ConstraintViolation;
 import am.ik.yavi.core.ConstraintViolations;
@@ -18,24 +19,24 @@ public final class RecipeValidator {
     }
 
     private static final Validator<RecipeDetail> recipeDetailValidator
-            = Validator.<RecipeDetail>builder()
+            = ValidatorBuilder.<RecipeDetail>of()
             .constraint(RecipeDetail::getQuantity, "validator", c -> c.greaterThan(0))
-            .constraintOnCondition(Group.CREATE.toCondition(), b ->
+            .constraintOnGroup(Group.CREATE, b ->
                     b.constraint(RecipeDetail::getId, "id", c -> c.isNull()))
-            .constraintOnCondition(Group.UPDATE.toCondition(), b ->
+            .constraintOnGroup(Group.UPDATE, b ->
                     b.constraint(RecipeDetail::getId, "id", c -> c.notNull()))
             .build();
 
     private static final Validator<Recipe> recipeValidator
-            = Validator.<Recipe>builder()
+            = ValidatorBuilder.<Recipe>of()
             .constraint(Recipe::getName, "name", c -> c.notBlank()
                     .lessThanOrEqual(100))
             .constraint(Recipe::getRecipeDetails, "recipeDetails", c -> c.notNull()
                     .greaterThan(0))
             .forEach(Recipe::getRecipeDetails, "recipeDetails", recipeDetailValidator)
-            .constraintOnCondition(Group.CREATE.toCondition(), b ->
+            .constraintOnGroup(Group.CREATE, b ->
                     b.constraint(Recipe::getId, "id", c -> c.isNull()))
-            .constraintOnCondition(Group.UPDATE.toCondition(), b ->
+            .constraintOnGroup(Group.UPDATE, b ->
                     b.constraint(Recipe::getId, "id", c -> c.notNull()))
             .build();
 
